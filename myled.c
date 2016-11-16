@@ -43,6 +43,18 @@ static ssize_t led_write(struct file* filp, const char* buf, size_t count, loff_
 				schedule();
 			i++;
 		}
+	}else if(c == '2'){
+		int j = 0;
+		while(j<20){
+			int timeout=jiffies+10;
+			gpio_base[7] = 1 << 25;
+			while(jiffies<timeout)
+				schedule();
+			gpio_base[10] = 1 << 25;
+			while(jiffies<timeout+10)
+				schedule();
+			j++;
+		}
 	}
 	return 1;
 }
